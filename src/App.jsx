@@ -1,29 +1,29 @@
-import  Axios  from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 
 function App() {
-  const [todos, setTodos] = useState([])
+  return <div>
+    <Todo id={1} />
+  </div>
+}
+
+function Todo({id}) {
+  const [todo, setTodo] = useState({});
 
   useEffect(() => {
-    Axios.get("https://sum-server.100xdevs.com/todos")
-      .then( function(res) {
-        setTodos(res.data.todos);
+    fetch("https://sum-server.100xdevs.com/todo?id=" + id)
+      .then(async function(res) {
+        const json = await res.json();
+        setTodo (json.todo);
       })
   }, [])
 
   return <div>
-    {todos.map(todo => <Todo key={todo.id} title={todo.title} description={todo.description} />)}
-  </div>
-}
-
-function Todo({title, description}) {
-  return <div>
     <h1>
-      {title}
+      {todo.title}
     </h1>
     <h4>
-      {description}
+      {todo.description}
     </h4>
   </div>
 }
