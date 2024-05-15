@@ -2,8 +2,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 function App() {
+  // state ?
+
+  const [todoId, setTodoId] = useState(1);
   return <div>
-    <Todo id={1} />
+      <button onClick={() => setTodoId(1)}>1</button>
+      <button onClick={() => setTodoId(2)}>2</button>
+      <button onClick={() => setTodoId(3)}>3</button>
+      <button onClick={() => setTodoId(4)}>4</button>
+
+
+    <Todo id={todoId} />
   </div>
 }
 
@@ -16,9 +25,10 @@ function Todo({id}) {
         const json = await res.json();
         setTodo (json.todo);
       })
-  }, [])
+  }, [id])  // do not forget to add id as dependency in depedency array
 
   return <div>
+    Id:{id}
     <h1>
       {todo.title}
     </h1>
